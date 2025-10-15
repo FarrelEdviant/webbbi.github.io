@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BBI dengan JavaScript - Lebih Lengkap</title>
+  <title>Hitung BBI dan Status Berat Badan</title>
 
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
   <style>
@@ -15,14 +14,14 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
       margin: 0;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
-      color: #2c3e50;
+      color: #333;
       user-select: none;
     }
 
@@ -30,26 +29,17 @@
       background: #fff;
       border-radius: 20px;
       padding: 50px 40px 60px;
-      max-width: 420px;
+      max-width: 450px;
       width: 100%;
-      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
       text-align: center;
-      transition: box-shadow 0.4s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .container:hover {
-      box-shadow: 0 30px 60px rgba(118, 75, 162, 0.5);
     }
 
     h2 {
       font-weight: 600;
       font-size: 2rem;
       margin-bottom: 30px;
-      color: #4b4276;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
+      color: #222;
     }
 
     label {
@@ -58,98 +48,64 @@
       font-weight: 600;
       color: #555;
       text-align: left;
-      font-size: 0.95rem;
-      letter-spacing: 0.5px;
     }
 
     select, input[type="number"] {
       width: 100%;
-      padding: 15px 20px;
-      font-size: 1.1rem;
+      padding: 14px 20px;
+      font-size: 1rem;
       border-radius: 12px;
       border: 2px solid #ccc;
-      margin-bottom: 25px;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      margin-bottom: 20px;
+      transition: 0.3s ease;
       outline: none;
-      font-weight: 500;
     }
 
     select:focus, input[type="number"]:focus {
-      border-color: #764ba2;
-      box-shadow: 0 0 10px rgba(118, 75, 162, 0.5);
+      border-color: #6a11cb;
+      box-shadow: 0 0 10px rgba(106, 17, 203, 0.3);
     }
 
     button {
       width: 100%;
-      padding: 18px 0;
-      font-size: 1.25rem;
+      padding: 16px 0;
+      font-size: 1.1rem;
       font-weight: 700;
       color: #fff;
-      background: linear-gradient(45deg, #667eea, #764ba2);
+      background: linear-gradient(45deg, #6a11cb, #2575fc);
       border: none;
       border-radius: 16px;
       cursor: pointer;
-      box-shadow: 0 8px 20px rgba(118, 75, 162, 0.5);
-      transition: background 0.4s ease, transform 0.2s ease;
+      box-shadow: 0 8px 20px rgba(106, 17, 203, 0.3);
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 10px;
-      user-select: none;
     }
 
     button:hover {
-      background: linear-gradient(45deg, #764ba2, #667eea);
-      transform: scale(1.05);
-    }
-
-    button:active {
-      transform: scale(0.97);
+      background: linear-gradient(45deg, #2575fc, #6a11cb);
+      transform: scale(1.03);
     }
 
     button svg {
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       fill: #fff;
-      transition: transform 0.3s ease;
-    }
-
-    button:hover svg {
-      transform: translateX(5px);
     }
 
     #hasil {
       margin-top: 30px;
-      font-weight: 700;
-      font-size: 1.25rem;
-      padding: 18px 25px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 20px;
       border-radius: 15px;
+      background-color: #f1f1f1;
+      color: #000; /* warna teks hitam */
       min-height: 5em;
-      box-shadow: inset 0 0 8px #b0a0db;
-      user-select: text;
-      transition: background 0.5s ease, color 0.3s ease;
-      word-wrap: break-word;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.1);
       text-align: center;
-    }
-
-    /* Warna hasil default */
-    #hasil.normal {
-      background-color: #e0d7f3;
-      color: #4b4276;
-    }
-
-    /* Warna error */
-    #hasil.error {
-      background-color: #f8d7da;
-      color: #721c24;
-      box-shadow: inset 0 0 8px #f5c6cb;
-    }
-
-    /* Warna warning */
-    #hasil.warning {
-      background-color: #fff3cd;
-      color: #856404;
-      box-shadow: inset 0 0 8px #ffeeba;
+      user-select: text;
     }
 
     /* Responsive */
@@ -162,37 +118,36 @@
         font-size: 1.6rem;
       }
 
-      select, input[type="number"] {
-        font-size: 1rem;
-      }
-
       button {
-        font-size: 1.1rem;
+        font-size: 1rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container" role="main" aria-label="Program Menghitung Berat Badan Ideal">
-    <h2>Program Menghitung Berat Badan Ideal (BBI)</h2>
+  <div class="container">
+    <h2>Hitung Berat Badan Ideal</h2>
 
     <label for="jenis_kelamin">Jenis Kelamin:</label>
-    <select id="jenis_kelamin" aria-required="true" aria-label="Jenis Kelamin">
+    <select id="jenis_kelamin">
       <option value="laki-laki">Laki-laki</option>
       <option value="perempuan">Perempuan</option>
     </select>
 
     <label for="tinggi">Tinggi Badan (cm):</label>
-    <input type="number" id="tinggi" step="0.1" aria-required="true" placeholder="Masukkan tinggi badan" aria-label="Tinggi Badan" />
+    <input type="number" id="tinggi" placeholder="Contoh: 170" />
 
-    <button id="hitung" aria-live="polite" aria-pressed="false">
+    <label for="berat">Berat Badan (kg):</label>
+    <input type="number" id="berat" placeholder="Contoh: 65" />
+
+    <button id="hitung">
       Hitung
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
       </svg>
     </button>
 
-    <p id="hasil" role="alert" aria-live="polite" aria-atomic="true" class="normal"></p>
+    <div id="hasil"></div>
   </div>
 
   <script>
@@ -206,46 +161,37 @@
       }
     }
 
-    const btnHitung = document.getElementById("hitung");
-    const hasilEl = document.getElementById("hasil");
+    const tombol = document.getElementById("hitung");
+    const hasil = document.getElementById("hasil");
 
-    btnHitung.addEventListener("click", function() {
-      const jenisKelamin = document.getElementById("jenis_kelamin").value;
+    tombol.addEventListener("click", function() {
+      const jk = document.getElementById("jenis_kelamin").value;
       const tinggi = parseFloat(document.getElementById("tinggi").value);
+      const berat = parseFloat(document.getElementById("berat").value);
 
-      if (isNaN(tinggi) || tinggi <= 0) {
-        hasilEl.className = "error";
-        hasilEl.innerText = "Masukkan tinggi badan yang valid!";
+      if (isNaN(tinggi) || tinggi <= 0 || isNaN(berat) || berat <= 0) {
+        hasil.innerHTML = `<span style="color: red;">Harap masukkan tinggi dan berat badan yang valid!</span>`;
         return;
       }
 
-      const hasil = hitungBBI(jenisKelamin, tinggi);
+      const bbi = hitungBBI(jk, tinggi);
+      const selisih = berat - bbi;
 
-      if (hasil === null) {
-        hasilEl.className = "error";
-        hasilEl.innerText = "Jenis kelamin tidak valid.";
-        return;
+      let status = "";
+      if (selisih < -10) {
+        status = "Berat badan Anda **terlalu rendah**. Cobalah untuk menambah asupan kalori.";
+      } else if (selisih >= -10 && selisih <= 10) {
+        status = "Berat badan Anda **ideal**. Pertahankan pola hidup sehat!";
+      } else if (selisih > 10 && selisih <= 20) {
+        status = "Berat badan Anda **berlebih**. Perhatikan asupan makan dan olahraga.";
+      } else {
+        status = "Anda mengalami **obesitas**. Sebaiknya konsultasi dengan ahli gizi.";
       }
 
-      // Validasi nilai BBI secara kasar
-      let pesan = "";
-      let kelasPesan = "normal";
-
-      if (hasil < 40) {
-        pesan = "BBI Anda sangat rendah, sebaiknya konsultasi dengan ahli gizi.";
-        kelasPesan = "warning";
-      } else if (hasil >= 40 && hasil <= 80) {
-        pesan = "BBI Anda dalam kisaran normal. Jaga pola makan dan olahraga secara teratur ya!";
-        kelasPesan = "normal";
-      } else if (hasil > 80) {
-        pesan = "BBI Anda cukup tinggi, perhatikan asupan kalori dan aktivitas fisik Anda.";
-        kelasPesan = "warning";
-      }
-
-      hasilEl.className = kelasPesan;
-      hasilEl.innerHTML = `
-        <strong>BBI untuk ${jenisKelamin} dengan tinggi ${tinggi.toFixed(1)} cm adalah ${hasil.toFixed(2)} kg.</strong><br />
-        <em>${pesan}</em>
+      hasil.innerHTML = `
+        <strong>BBI (${jk}, ${tinggi} cm): ${bbi.toFixed(2)} kg</strong><br>
+        Berat badan Anda: <strong>${berat} kg</strong><br><br>
+        <em>${status}</em>
       `;
     });
   </script>
