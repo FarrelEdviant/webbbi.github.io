@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BBI dengan JavaScript - Super Keren</title>
+  <title>BBI dengan JavaScript - Lebih Lengkap</title>
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
@@ -121,16 +121,35 @@
     #hasil {
       margin-top: 30px;
       font-weight: 700;
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       padding: 18px 25px;
-      background: #e0d7f3;
       border-radius: 15px;
-      color: #4b4276;
-      min-height: 3.5em;
+      min-height: 5em;
       box-shadow: inset 0 0 8px #b0a0db;
       user-select: text;
-      transition: background 0.5s ease;
+      transition: background 0.5s ease, color 0.3s ease;
       word-wrap: break-word;
+      text-align: center;
+    }
+
+    /* Warna hasil default */
+    #hasil.normal {
+      background-color: #e0d7f3;
+      color: #4b4276;
+    }
+
+    /* Warna error */
+    #hasil.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      box-shadow: inset 0 0 8px #f5c6cb;
+    }
+
+    /* Warna warning */
+    #hasil.warning {
+      background-color: #fff3cd;
+      color: #856404;
+      box-shadow: inset 0 0 8px #ffeeba;
     }
 
     /* Responsive */
@@ -158,7 +177,7 @@
     <h2>Program Menghitung Berat Badan Ideal (BBI)</h2>
 
     <label for="jenis_kelamin">Jenis Kelamin:</label>
-    <select id="jenis_kelamin" aria-required="true" aria-describedby="jenisKelaminDesc" aria-label="Jenis Kelamin">
+    <select id="jenis_kelamin" aria-required="true" aria-label="Jenis Kelamin">
       <option value="laki-laki">Laki-laki</option>
       <option value="perempuan">Perempuan</option>
     </select>
@@ -173,7 +192,7 @@
       </svg>
     </button>
 
-    <p id="hasil" role="alert" aria-live="polite" aria-atomic="true"></p>
+    <p id="hasil" role="alert" aria-live="polite" aria-atomic="true" class="normal"></p>
   </div>
 
   <script>
@@ -195,22 +214,39 @@
       const tinggi = parseFloat(document.getElementById("tinggi").value);
 
       if (isNaN(tinggi) || tinggi <= 0) {
+        hasilEl.className = "error";
         hasilEl.innerText = "Masukkan tinggi badan yang valid!";
-        hasilEl.style.backgroundColor = '#f8d7da'; // merah muda
-        hasilEl.style.color = '#721c24';
         return;
       }
 
       const hasil = hitungBBI(jenisKelamin, tinggi);
-      if (hasil !== null) {
-        hasilEl.innerText = `BBI untuk ${jenisKelamin} dengan tinggi ${tinggi.toFixed(1)} cm adalah ${hasil.toFixed(2)} kg`;
-        hasilEl.style.backgroundColor = '#e0d7f3'; // normal
-        hasilEl.style.color = '#4b4276';
-      } else {
+
+      if (hasil === null) {
+        hasilEl.className = "error";
         hasilEl.innerText = "Jenis kelamin tidak valid.";
-        hasilEl.style.backgroundColor = '#f8d7da'; // merah muda
-        hasilEl.style.color = '#721c24';
+        return;
       }
+
+      // Validasi nilai BBI secara kasar
+      let pesan = "";
+      let kelasPesan = "normal";
+
+      if (hasil < 40) {
+        pesan = "BBI Anda sangat rendah, sebaiknya konsultasi dengan ahli gizi.";
+        kelasPesan = "warning";
+      } else if (hasil >= 40 && hasil <= 80) {
+        pesan = "BBI Anda dalam kisaran normal. Jaga pola makan dan olahraga secara teratur ya!";
+        kelasPesan = "normal";
+      } else if (hasil > 80) {
+        pesan = "BBI Anda cukup tinggi, perhatikan asupan kalori dan aktivitas fisik Anda.";
+        kelasPesan = "warning";
+      }
+
+      hasilEl.className = kelasPesan;
+      hasilEl.innerHTML = `
+        <strong>BBI untuk ${jenisKelamin} dengan tinggi ${tinggi.toFixed(1)} cm adalah ${hasil.toFixed(2)} kg.</strong><br />
+        <em>${pesan}</em>
+      `;
     });
   </script>
 </body>
