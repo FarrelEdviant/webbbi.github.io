@@ -1,151 +1,217 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>BBI dengan JavaScript</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BBI dengan JavaScript - Super Keren</title>
 
-    <style>
-        /* Reset sedikit */
-        * {
-            box-sizing: border-box;
-        }
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            color: #333;
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-        .container {
-            background-color: #fff;
-            border-radius: 15px;
-            padding: 40px 50px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #2c3e50;
+      user-select: none;
+    }
 
-        .container:hover {
-            transform: translateY(-5px);
-        }
+    .container {
+      background: #fff;
+      border-radius: 20px;
+      padding: 50px 40px 60px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+      text-align: center;
+      transition: box-shadow 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
 
-        h2 {
-            margin-bottom: 30px;
-            color: #444;
-        }
+    .container:hover {
+      box-shadow: 0 30px 60px rgba(118, 75, 162, 0.5);
+    }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #555;
-            text-align: left;
-        }
+    h2 {
+      font-weight: 600;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #4b4276;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
 
-        select, input[type="number"] {
-            width: 100%;
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: 1.8px solid #ddd;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-            outline: none;
-            margin-bottom: 20px;
-        }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #555;
+      text-align: left;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+    }
 
-        select:focus, input[type="number"]:focus {
-            border-color: #2575fc;
-            box-shadow: 0 0 6px #2575fc;
-        }
+    select, input[type="number"] {
+      width: 100%;
+      padding: 15px 20px;
+      font-size: 1.1rem;
+      border-radius: 12px;
+      border: 2px solid #ccc;
+      margin-bottom: 25px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      outline: none;
+      font-weight: 500;
+    }
 
-        button {
-            width: 100%;
-            padding: 14px 20px;
-            background: #2575fc;
-            color: white;
-            font-weight: 700;
-            font-size: 1.1rem;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 0 6px 12px rgba(37, 117, 252, 0.5);
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
+    select:focus, input[type="number"]:focus {
+      border-color: #764ba2;
+      box-shadow: 0 0 10px rgba(118, 75, 162, 0.5);
+    }
 
-        button:hover {
-            background-color: #1a52c0;
-            transform: scale(1.05);
-        }
+    button {
+      width: 100%;
+      padding: 18px 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(118, 75, 162, 0.5);
+      transition: background 0.4s ease, transform 0.2s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      user-select: none;
+    }
 
-        #hasil {
-            margin-top: 25px;
-            font-weight: 600;
-            font-size: 1.2rem;
-            color: #2575fc;
-            min-height: 1.5em;
-            word-wrap: break-word;
-        }
+    button:hover {
+      background: linear-gradient(45deg, #764ba2, #667eea);
+      transform: scale(1.05);
+    }
 
-        /* Responsive */
-        @media (max-width: 480px) {
-            .container {
-                padding: 30px 20px;
-            }
-        }
-    </style>
+    button:active {
+      transform: scale(0.97);
+    }
+
+    button svg {
+      width: 22px;
+      height: 22px;
+      fill: #fff;
+      transition: transform 0.3s ease;
+    }
+
+    button:hover svg {
+      transform: translateX(5px);
+    }
+
+    #hasil {
+      margin-top: 30px;
+      font-weight: 700;
+      font-size: 1.3rem;
+      padding: 18px 25px;
+      background: #e0d7f3;
+      border-radius: 15px;
+      color: #4b4276;
+      min-height: 3.5em;
+      box-shadow: inset 0 0 8px #b0a0db;
+      user-select: text;
+      transition: background 0.5s ease;
+      word-wrap: break-word;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .container {
+        padding: 40px 25px 50px;
+      }
+
+      h2 {
+        font-size: 1.6rem;
+      }
+
+      select, input[type="number"] {
+        font-size: 1rem;
+      }
+
+      button {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Program Menghitung Berat Badan Ideal (BBI)</h2>
-        <label for="jenis_kelamin">Jenis Kelamin:</label>
-        <select id="jenis_kelamin" aria-label="Jenis Kelamin">
-            <option value="laki-laki">Laki-laki</option>
-            <option value="perempuan">Perempuan</option>
-        </select>
+  <div class="container" role="main" aria-label="Program Menghitung Berat Badan Ideal">
+    <h2>Program Menghitung Berat Badan Ideal (BBI)</h2>
 
-        <label for="tinggi">Tinggi Badan (cm):</label>
-        <input type="number" id="tinggi" step="0.1" aria-label="Tinggi Badan" placeholder="Masukkan tinggi badan" />
+    <label for="jenis_kelamin">Jenis Kelamin:</label>
+    <select id="jenis_kelamin" aria-required="true" aria-describedby="jenisKelaminDesc" aria-label="Jenis Kelamin">
+      <option value="laki-laki">Laki-laki</option>
+      <option value="perempuan">Perempuan</option>
+    </select>
 
-        <button id="hitung">Hitung</button>
-        <p id="hasil" role="alert" aria-live="polite"></p>
-    </div>
+    <label for="tinggi">Tinggi Badan (cm):</label>
+    <input type="number" id="tinggi" step="0.1" aria-required="true" placeholder="Masukkan tinggi badan" aria-label="Tinggi Badan" />
 
-    <script>
-        function hitungBBI(jenisKelamin, tinggi) {
-            if (jenisKelamin === "laki-laki") {
-                return (tinggi - 100) - 0.10 * (tinggi - 100);
-            } else if (jenisKelamin === "perempuan") {
-                return (tinggi - 100) - 0.15 * (tinggi - 100);
-            } else {
-                return null;
-            }
-        }
+    <button id="hitung" aria-live="polite" aria-pressed="false">
+      Hitung
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </button>
 
-        document.getElementById("hitung").addEventListener("click", function() {
-            const jenisKelamin = document.getElementById("jenis_kelamin").value;
-            const tinggi = parseFloat(document.getElementById("tinggi").value);
+    <p id="hasil" role="alert" aria-live="polite" aria-atomic="true"></p>
+  </div>
 
-            if (isNaN(tinggi) || tinggi <= 0) {
-                document.getElementById("hasil").innerText = "Masukkan tinggi badan yang valid!";
-                return;
-            }
+  <script>
+    function hitungBBI(jenisKelamin, tinggi) {
+      if (jenisKelamin === "laki-laki") {
+        return (tinggi - 100) - 0.10 * (tinggi - 100);
+      } else if (jenisKelamin === "perempuan") {
+        return (tinggi - 100) - 0.15 * (tinggi - 100);
+      } else {
+        return null;
+      }
+    }
 
-            const hasil = hitungBBI(jenisKelamin, tinggi);
-            if (hasil !== null) {
-                document.getElementById("hasil").innerText = `BBI untuk ${jenisKelamin} dengan tinggi ${tinggi.toFixed(1)} cm adalah ${hasil.toFixed(2)} kg`;
-            } else {
-                document.getElementById("hasil").innerText = "Jenis kelamin tidak valid.";
-            }
-        });
-    </script>
+    const btnHitung = document.getElementById("hitung");
+    const hasilEl = document.getElementById("hasil");
+
+    btnHitung.addEventListener("click", function() {
+      const jenisKelamin = document.getElementById("jenis_kelamin").value;
+      const tinggi = parseFloat(document.getElementById("tinggi").value);
+
+      if (isNaN(tinggi) || tinggi <= 0) {
+        hasilEl.innerText = "Masukkan tinggi badan yang valid!";
+        hasilEl.style.backgroundColor = '#f8d7da'; // merah muda
+        hasilEl.style.color = '#721c24';
+        return;
+      }
+
+      const hasil = hitungBBI(jenisKelamin, tinggi);
+      if (hasil !== null) {
+        hasilEl.innerText = `BBI untuk ${jenisKelamin} dengan tinggi ${tinggi.toFixed(1)} cm adalah ${hasil.toFixed(2)} kg`;
+        hasilEl.style.backgroundColor = '#e0d7f3'; // normal
+        hasilEl.style.color = '#4b4276';
+      } else {
+        hasilEl.innerText = "Jenis kelamin tidak valid.";
+        hasilEl.style.backgroundColor = '#f8d7da'; // merah muda
+        hasilEl.style.color = '#721c24';
+      }
+    });
+  </script>
 </body>
 </html>
