@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Program Menghitung Berat Badan Ideal (BBI)</title>
-    <!-- Include PyScript -->
-    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
-    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BBI dengan PyScript</title>
+
+    <!-- GUNAKAN VERSI STABIL -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/pyscript.css" />
+    <script defer src="https://pyscript.net/releases/2024.1.1/pyscript.js"></script>
 
     <style>
         body {
             font-family: Arial;
-            background-color: #f5f5f5;
             text-align: center;
-            margin-top: 80px;
+            margin-top: 100px;
         }
         .card {
             display: inline-block;
-            background: white;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 0 10px #aaa;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
         input, select, button {
             padding: 10px;
@@ -29,7 +29,6 @@
         }
     </style>
 </head>
-
 <body>
     <h2>Program Menghitung Berat Badan Ideal (BBI)</h2>
     <div class="card">
@@ -48,28 +47,23 @@
 
     <py-script>
 def hitung_bbi(jenis_kelamin, tinggi):
-    if jenis_kelamin.lower() == "laki-laki":
-        bbi = (tinggi - 100) - (0.10 * (tinggi - 100))
-    elif jenis_kelamin.lower() == "perempuan":
-        bbi = (tinggi - 100) - (0.15 * (tinggi - 100))
+    if jenis_kelamin == "laki-laki":
+        return (tinggi - 100) - 0.10 * (tinggi - 100)
+    elif jenis_kelamin == "perempuan":
+        return (tinggi - 100) - 0.15 * (tinggi - 100)
     else:
         return None
-    return bbi
 
 from js import document
 
 def hitung(event):
-    jenis_kelamin = document.getElementById("jenis_kelamin").value
-    tinggi = float(document.getElementById("tinggi").value)
-    hasil = hitung_bbi(jenis_kelamin, tinggi)
-    hasil_el = document.getElementById("hasil")
-    if hasil is not None:
-        hasil_el.innerText = f"Berat badan ideal untuk {jenis_kelamin} dengan tinggi {tinggi:.1f} cm adalah {hasil:.2f} kg"
-    else:
-        hasil_el.innerText = "Jenis kelamin tidak valid."
+    jk = document.getElementById("jenis_kelamin").value
+    tb = float(document.getElementById("tinggi").value)
+    hasil = hitung_bbi(jk, tb)
+    out = document.getElementById("hasil")
+    out.innerText = f"BBI untuk {jk} dengan tinggi {tb:.1f} cm adalah {hasil:.2f} kg"
 
 document.getElementById("hitung").addEventListener("click", hitung)
     </py-script>
 </body>
-
 </html>
