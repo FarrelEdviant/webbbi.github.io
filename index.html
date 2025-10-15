@@ -14,24 +14,23 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      background-color: #000; /* Background halaman hitam */
       margin: 0;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
-      color: #333;
-      user-select: none;
+      color: #fff;
     }
 
     .container {
-      background: #fff;
+      background: #1c1c1c; /* Kotak gelap */
       border-radius: 20px;
       padding: 50px 40px 60px;
       max-width: 450px;
       width: 100%;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 20px 40px rgba(255, 255, 255, 0.05);
       text-align: center;
     }
 
@@ -39,14 +38,14 @@
       font-weight: 600;
       font-size: 2rem;
       margin-bottom: 30px;
-      color: #222;
+      color: #ffffff;
     }
 
     label {
       display: block;
       margin-bottom: 8px;
       font-weight: 600;
-      color: #555;
+      color: #ddd;
       text-align: left;
     }
 
@@ -55,15 +54,16 @@
       padding: 14px 20px;
       font-size: 1rem;
       border-radius: 12px;
-      border: 2px solid #ccc;
+      border: 2px solid #333;
       margin-bottom: 20px;
-      transition: 0.3s ease;
-      outline: none;
+      background-color: #111;
+      color: #fff;
     }
 
     select:focus, input[type="number"]:focus {
-      border-color: #6a11cb;
-      box-shadow: 0 0 10px rgba(106, 17, 203, 0.3);
+      border-color: #888;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      outline: none;
     }
 
     button {
@@ -72,19 +72,20 @@
       font-size: 1.1rem;
       font-weight: 700;
       color: #fff;
-      background: linear-gradient(45deg, #6a11cb, #2575fc);
+      background: linear-gradient(45deg, #111, #333); /* Tombol hitam stylish */
       border: none;
       border-radius: 16px;
       cursor: pointer;
-      box-shadow: 0 8px 20px rgba(106, 17, 203, 0.3);
+      box-shadow: 0 8px 15px rgba(255, 255, 255, 0.05);
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 10px;
+      transition: transform 0.2s ease, background 0.3s ease;
     }
 
     button:hover {
-      background: linear-gradient(45deg, #2575fc, #6a11cb);
+      background: linear-gradient(45deg, #333, #000);
       transform: scale(1.03);
     }
 
@@ -100,15 +101,14 @@
       font-size: 1.1rem;
       padding: 20px;
       border-radius: 15px;
-      background-color: #f1f1f1;
-      color: #000; /* warna teks hitam */
+      background-color: #2a2a2a; /* Background hasil gelap */
+      color: #fff; /* Teks hasil putih */
       min-height: 5em;
-      box-shadow: inset 0 0 8px rgba(0,0,0,0.1);
+      box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.05);
       text-align: center;
       user-select: text;
     }
 
-    /* Responsive */
     @media (max-width: 480px) {
       .container {
         padding: 40px 25px 50px;
@@ -170,7 +170,7 @@
       const berat = parseFloat(document.getElementById("berat").value);
 
       if (isNaN(tinggi) || tinggi <= 0 || isNaN(berat) || berat <= 0) {
-        hasil.innerHTML = `<span style="color: red;">Harap masukkan tinggi dan berat badan yang valid!</span>`;
+        hasil.innerHTML = `<span style="color: #ff4d4d;">Harap masukkan tinggi dan berat badan yang valid!</span>`;
         return;
       }
 
@@ -179,13 +179,13 @@
 
       let status = "";
       if (selisih < -10) {
-        status = "Berat badan Anda **terlalu rendah**. Cobalah untuk menambah asupan kalori.";
+        status = "Berat badan Anda terlalu rendah. Cobalah untuk menambah asupan kalori.";
       } else if (selisih >= -10 && selisih <= 10) {
-        status = "Berat badan Anda **ideal**. Pertahankan pola hidup sehat!";
+        status = "Berat badan Anda ideal. Pertahankan pola hidup sehat!";
       } else if (selisih > 10 && selisih <= 20) {
-        status = "Berat badan Anda **berlebih**. Perhatikan asupan makan dan olahraga.";
+        status = "Berat badan Anda berlebih. Perhatikan asupan makan dan olahraga.";
       } else {
-        status = "Anda mengalami **obesitas**. Sebaiknya konsultasi dengan ahli gizi.";
+        status = "Anda mengalami obesitas. Sebaiknya konsultasi dengan ahli gizi.";
       }
 
       hasil.innerHTML = `
@@ -197,3 +197,4 @@
   </script>
 </body>
 </html>
+
